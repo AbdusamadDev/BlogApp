@@ -1,0 +1,9 @@
+pymemcache
+python-jose
+psycopg2
+bcrypt
+django-rest-framework
+pytest-django
+locust
+gunicorn==20.1.0
+Pillow

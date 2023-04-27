@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is homepage  {{ request.user.username }}</h1>
+    <hr>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione suscipit<br>
+        quam porro ducimus. Eum, ducimus porro officiis sint adipisci repellendus quaerat<br> 
+        eius consequatur nam. Aperiam libero officia labore vero consequatur?<br>
+    </p>
+    <li>
+        <strong>Blogs app</strong><br>
+        <a href="{% url 'create' %}">Create Blog Post</a><br>
+        <a href="{% url 'list' %}">Blog Posts</a><br>
+        <strong>Authentication</strong><br>
+        <a href="{% url 'register' %}">Register</a><br>
+        <a href="{% url 'login' %}">Login</a><br>
+        <a href="{% url 'logout' %}">Logout</a><br>
+        <strong>Comments</strong>
+        <a href="{% url 'profile' %}">My dashboard</a><br> 
+
+    </li>
+    <br>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+{% block content %}
+{% endblock %}
+</body>
+</html>

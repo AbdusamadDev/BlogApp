@@ -1,0 +1,9 @@
+{% extends 'home.html' %}
+
+{% block content %}
+    <h1>Username: {{ object.username }}</h1>
+    <h3>Email: {{ object.email }}</h3>
+    <hr>
+    <p>About me:<br>{{ object.bio }}</p>
+    <p>Image: <img src="{{ object.avatar.url }}"></p>
+{% endblock %}

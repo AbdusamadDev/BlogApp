@@ -1,0 +1,48 @@
+Web application built in Django is included following sections:
+
+. Authentication
+. Blogs
+. Comments
+. Dashboard
+
+Tools to use:
+
+. JWT
+. SEO (Search Engine Optimization)
+. Pagination
+
+in Authentication session, following things should be included:
+
+.. login -> email, password
+.. register -> email, username, password, avatar, bio, date_of_birth, gender, date_joined
+.. logout -> a link to logout user
+
+In Dashboard session, following things should be included:
+
+... Profile
+    |_ Username, Avatar, and all details must be shown
+    |_ All posts which added by user should be shown
+
+... My Blogs
+    |_ All posts of user should be shown
+
+... Logout
+
+
+Blogs
+
+.... Create Blog
+.... Search Blogs
+.... Edit Blog
+.... Delete Blog
+
+Comments
+
+..... Comment
+..... Edit Comment
+..... Delete Comment
+
+Avaliable Hosting sites:
+
+_ Railway
+_ Docker

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h2>{{ object.title }}</h2>
+        <hr>
+        {% if object.image %}
+            <img src="{{ object.image.url }}">
+            <p><strong>{{ object.user.username }}</strong></p>
+            {% endif %}
+        <br>
+        <p>{{ object.content }}</p>
+        <br>
+        <p>{{ object.date }}</p>
+        {{ object.pk }}
+        <br><hr>
+        <a href="{% url 'comment' post_id=object.pk %}">Comment Out</a>
+        <hr>
+        {% if comments %}
+            {% for comment in comments %}
+                <div>
+                    <p>{{ comment.comment }} ---<a href="{% url 'delete-comment' comment.pk %}">Delete</a></p>
+                    <p>
+                        <strong>Commented by {{ comment.user.username }} at {{ comment.date }}</strong>
+                    </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>

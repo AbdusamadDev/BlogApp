@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for obj in object %}
+        <div>
+            <h2>{{ obj.title }}</h2>
+            <br>
+            <img src="{{ obj.image.url }}">
+            <p>{{ obj.content }}</p>
+            <hr>
+            <p><strong>Posted by {{ obj.user.username }} in {{ obj.date }}</strong></p>
+        </div>
+    {% endfor %}
+    <div>
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"><< Previos</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next >></a>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

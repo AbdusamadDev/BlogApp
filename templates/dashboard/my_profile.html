@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Hi, {{ object.username }}</h1>
+    <hr>
+    <p><strong>About Me<br><br>{{ object.bio }}</strong></p>
+    <p>Age: {{ object.birthdate }}</p>
+    <p>Gender: {{ object.gender }}</p>
+    <p>Member since {{ object.date_joined }}</p>
+    <img src="{{ object.avatar.url }}">
+    <br><br>
+    <a href="{% url 'my-blogs' %}">My Blogs</a>
+</body>
+</html>
