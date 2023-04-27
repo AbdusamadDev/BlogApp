@@ -76,7 +76,7 @@ class BlogsListView(ListView):
     http_method_names = ["get"]
     queryset = BlogsModel.objects.all().order_by("?")
     template_name = "blogs/list.html"
-    paginate_by = 20 if queryset.count() > 30 else 1
+    paginate_by = 20
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         try:
@@ -109,6 +109,3 @@ def home(request):
         return render(request, "home.html", context=context)
     # except Exception:
     #     return HttpResponse("Sorry page is not avaliable due to some internal problems")
-# qweqweqwesafra
-# qweqweqweqwe
-# ewrwefsdfsdf
