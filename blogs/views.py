@@ -110,3 +110,4 @@ def home(request):
     # except Exception:
     #     return HttpResponse("Sorry page is not avaliable due to some internal problems")
 # qweqweqwesafra
+# qweqweqweqwe
