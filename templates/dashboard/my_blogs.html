@@ -12,7 +12,7 @@
             <h2>{{ obj.title }}</h2>
             <br>
             <img src="{{ obj.image.url }}">
-            <p>{{ obj.content }}</p>
+            <p>{{ obj.content|safe }}</p>
             <hr>
             <p><strong>Posted by {{ obj.user.username }} in {{ obj.date }}</strong></p>
         </div>

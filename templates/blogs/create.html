@@ -10,6 +10,7 @@
 <form action="{% url 'create' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+    {{ form.media }}
     <input type="submit"/>
 </form>
 </body>

@@ -11,6 +11,7 @@
         <form action="{% url 'update' form.instance.pk %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
+            {{ form.media }}
             <input type="submit"/>
         </form>
     </div>

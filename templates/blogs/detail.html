@@ -15,7 +15,7 @@
             <p><strong>{{ object.user.username }}</strong></p>
             {% endif %}
         <br>
-        <p>{{ object.content }}</p>
+        <p>{{ object.content|safe }}</p>
         <br>
         <p>{{ object.date }}</p>
         {{ object.pk }}

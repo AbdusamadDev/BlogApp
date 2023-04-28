@@ -13,7 +13,7 @@
             <hr>
             <br>
             <img src="{{ object.image.url }}">
-            <p>{{ object.content }}</p>
+            <p>{{ object.content|safe }}</p>
             <br>
             <p>{{ object.date }}</p>
             <a href="{% url 'detail' object.pk %}">Read More</a>
