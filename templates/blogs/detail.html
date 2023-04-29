@@ -25,7 +25,10 @@
         {% if comments %}
             {% for comment in comments %}
                 <div>
-                    <p>{{ comment.comment }} ---<a href="{% url 'delete-comment' comment.pk %}">Delete</a></p>
+                    <p>{{ comment.comment }} 
+                        {% if request.user.id == comment.user_id %} 
+                            ---<a href="{% url 'delete-comment' comment.pk %}">Delete</a></p>
+                        {% endif %}
                     <p>
                         <strong>Commented by {{ comment.user.username }} at {{ comment.date }}</strong>
                     </p>

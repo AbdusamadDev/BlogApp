@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, DeleteView
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
@@ -9,8 +10,9 @@ from comments.forms import CommentForm
 from blogs.models import BlogsModel
 from accounts.models import UserProfile
 
-class CommentView(CreateView):
+class CommentView(LoginRequiredMixin, CreateView):
     model = CommentModel
+    login_url = "login"
     form_class = CommentForm
     template_name = "comments/comment.html"
 
@@ -34,10 +36,12 @@ class CommentView(CreateView):
         return context
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        # if not request.user.is_authenticated:
+        #     print("not authenticated 0000")
+        #     return HttpResponseRedirect(reverse_lazy("login"))
         form = self.form_class(data=request.POST)
         if form.is_valid():
-            if not request.user.is_authenticated:
-                return HttpResponseRedirect(reverse_lazy("login"))
+            print("Not Authenticated 000")
             comment = form.cleaned_data.get("comment")
             print("form being valid")
             model = CommentModel(
@@ -46,7 +50,8 @@ class CommentView(CreateView):
             return HttpResponseRedirect(self.get_success_url())
         else:
             return HttpResponse("Form is invalid")
-        
+            
+
 class DeleteComment(DeleteView):
     model = CommentModel
     template_name = "comments/commentmodel_confirm_delete.html"
@@ -55,6 +60,11 @@ class DeleteComment(DeleteView):
     def get_success_url(self) -> str:
         self.success_url = reverse_lazy("detail", kwargs={"pk": self.kwargs.get("pk")})
         return self.success_url
+    
+    def delete(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect(reverse_lazy("login"))
+        return super().delete(request, *args, **kwargs)
 
 def profile(request):
     if request.user.is_authenticated:

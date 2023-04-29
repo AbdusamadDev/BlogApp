@@ -8,10 +8,11 @@
 </head>
 <body>
     <div>
-        <form action="{% url 'login' %}" method="post">
+        <form action="{% url 'login' %}?next={{ request.path }}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit">
+            <input type="hidden" name="next" value="{{ next }}" />
+            <button type="submit">Login</button>
         </form>
     </div>
 </body>

@@ -15,7 +15,8 @@ from blogs.forms import CreateBlogForm
 from comments.models import CommentModel
 from permissions.views import IsAuthenticatedMixin
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict
+
 
 class DetailsView(DetailView):
     """Fetch one data from database"""
@@ -57,7 +58,6 @@ class CreateBlogView(IsAuthenticatedMixin, CreateView):
                 title   = form.cleaned_data.get("title")
                 image   = form.cleaned_data.get("image")
                 content = form.cleaned_data.get("content")
-                print(image)
                 model   = self.model(title=title, user=user_id, content=content, image=image)
                 model.save()
                 messages.success(request=request, message=("Blog posted successfully!"))
@@ -75,7 +75,7 @@ class BlogsListView(ListView):
 
     http_method_names = ["get"]
     queryset = BlogsModel.objects.all().order_by("?")
-    template_name = "blogs/list.html"
+    template_name = "home.html"
     paginate_by = 20
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:

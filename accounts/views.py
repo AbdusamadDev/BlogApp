@@ -46,11 +46,8 @@ class Login(LoginView):
     form_class = UserLoginForm
 
     def get_success_url(self) -> str:
-        next_url = self.request.POST.get('next', '/')
+        next_url = self.request.POST.get('next')
         self.success_url = next_url
-    
-        print(self.request.POST)
-        print(next_url)
         print(self.success_url)
         return self.success_url
 
