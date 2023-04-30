@@ -46,3 +46,4 @@ Avaliable Hosting sites:
 
 _ Railway
 _ Docker
+_ Amazon Web Services

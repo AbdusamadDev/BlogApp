@@ -1,3 +1,5 @@
+
+
 from django import forms
 from blogs.models import BlogsModel
 
@@ -19,3 +21,5 @@ class UpdateBlogForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.fields['image'].required = False
+
+

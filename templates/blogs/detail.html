@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
+{% extends 'home.html' %}
+
+{% block content %}
+    <div style="max-width: 900px; word-wrap: break-word;margin-left: 20%;">
+        {% if object.image != "" %}
+            <img class="img-fluid" src="{{ object.image.url }}" style="border-radius: 3%;border-style: ridge;">
+        {% endif %}
+        <br><br>
+        <h1>{{ object.title }}</h1>
+        <div style="word-wrap: break-word;">
+            <p class="card-text">{{ object.content|safe }}</p>  
+            <br><br>
+            <small>Posted by {{ object.user.username }} at <strong>{{ object.date }}</strong></small>
+        </div>
+    </div>
+    <!-- <a class="list-group-item list-group-item-action">
         <h2>{{ object.title }}</h2>
         <hr>
         {% if object.image %}
@@ -35,6 +41,5 @@
                 </div>
             {% endfor %}
         {% endif %}
-    </div>
-</body>
-</html>
+    </a> -->
+{% endblock %}

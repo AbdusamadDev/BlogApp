@@ -1,3 +1,5 @@
+
+
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
@@ -10,3 +12,4 @@ urlpatterns = [
     path("list/", views.BlogsListView.as_view(), name="list"),
     path("delete/<int:pk>/", views.DeleteBlogView.as_view(), name="delete")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

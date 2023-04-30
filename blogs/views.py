@@ -1,7 +1,11 @@
+
+
+
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     CreateView, 
     DetailView, 
@@ -13,9 +17,9 @@ from accounts.models import UserProfile
 from blogs.models import BlogsModel
 from blogs.forms import CreateBlogForm
 from comments.models import CommentModel
-from permissions.views import IsAuthenticatedMixin
 
 from typing import Any, Dict
+from PIL import Image
 
 
 class DetailsView(DetailView):
@@ -38,7 +42,7 @@ class DetailsView(DetailView):
         else:
             return super().get_context_data(**kwargs)
 
-class CreateBlogView(IsAuthenticatedMixin, CreateView):
+class CreateBlogView(LoginRequiredMixin, CreateView):
     """
     Creating blogs 
     Main logic goes here
@@ -47,6 +51,7 @@ class CreateBlogView(IsAuthenticatedMixin, CreateView):
     login_url = "accounts/login/"
     template_name = "blogs/create.html"
     form_class = CreateBlogForm
+    login_url = "login"
     model = BlogsModel
     success_url = reverse_lazy("list")
 
@@ -76,13 +81,19 @@ class BlogsListView(ListView):
     http_method_names = ["get"]
     queryset = BlogsModel.objects.all().order_by("?")
     template_name = "home.html"
-    paginate_by = 20
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        users = UserProfile.objects.all().values("username", "gender", "bio", "pk", "date_joined")
+        context = super().get_context_data(**kwargs)
+        context.update({"users": users})
+        return context
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        try:
+        # try:
             return super().get(request, *args, **kwargs)
-        except Exception:
-            return HttpResponse("Sorry page is not avaliable due to some internal problems")
+        # except Exception:
+        #     return HttpResponse("Sorry page is not avaliable due to some internal problems")
 
 class DeleteBlogView(DeleteView):
     """Delete Blog post which only belongs to user's itself"""
@@ -109,3 +120,4 @@ def home(request):
         return render(request, "home.html", context=context)
     # except Exception:
     #     return HttpResponse("Sorry page is not avaliable due to some internal problems")
+
