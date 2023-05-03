@@ -5,6 +5,8 @@ from accounts.models import UserProfile
 
 
 class UserProfileCreationForm(UserCreationForm):
+    """All fields in User creation process: username, 
+    email, password, birthdate, bio, avatar, gender"""
     class Meta:
         model = UserProfile
         fields = [
@@ -12,15 +14,55 @@ class UserProfileCreationForm(UserCreationForm):
             ]
 
         widgets = {
-            "password1": forms.PasswordInput(),
-            "birthdate": forms.DateTimeInput(),
-            "bio": forms.Textarea()
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Your Email here"
+                }
+            ),
+            "username": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Your Username here"
+                }
+            ),
+            "birthdate": forms.DateTimeInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "date",
+                    "id": "time"
+                }
+            ),
+            "gender": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+            "avatar": forms.FileInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "file"
+                }
+            ),
+            "bio": forms.Textarea(
+                attrs={
+                    "placeholder": "Tell us about yourself",
+                    "class": "form-control"
+                }
+            )
         }
 
 class UserLoginForm(AuthenticationForm):
     class Meta:
         fields = ["username", "password"]
+        model = UserProfile
 
         widgets = {
-            "password": forms.PasswordInput()
+            "username": forms.TextInput(
+                attrs={
+                    "class": "form-control form-control-lg",
+                    "placeholder": "You username here",
+                    "style": "margin-left: 50px"
+                }
+            )
         }

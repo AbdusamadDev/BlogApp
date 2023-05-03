@@ -10,9 +10,13 @@
         <div style="word-wrap: break-word;">
             <p class="card-text">{{ object.content|safe }}</p>  
             <br><br>
-            <small>Posted by {{ object.user.username }} at <strong>{{ object.date }}</strong></small>
+            <small>Posted by {{ object.user.username }} at <strong>{{ object.date }}</strong></small> 
+            {% if request.user.id == object.user.id %}
+                <a href="{% url 'delete' object.pk %}" class="btn btn-outline-danger">Delete Blog</a>
+            {% endif %}
         </div>
     </div>
+    <br>
     <!-- <a class="list-group-item list-group-item-action">
         <h2>{{ object.title }}</h2>
         <hr>

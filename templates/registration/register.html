@@ -1,18 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit">
-        </form>
+{% extends 'home.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <ul>
+                    <li>Your password can’t be too similar to your other<br>personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can’t be a commonly used password.</li>
+                    <li>Your password can’t be entirely numeric.</li>
+                </ul>
+            </div>
+            <div class="col-md-6" style="background-color:azure">
+                <form class="row g-3", style="width: 650px" action="{% url 'register' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <label for="inputAddress" class="form-label">Username</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="col-12">
+                        <label for="inputAddress" class="form-label">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label">Password</label><br>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Confirm Password</label>
+                        {{ form.password2 }}    
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputCity" class="form-label">Avatar</label>
+                        {{ form.avatar }}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Birthdate</label>
+                        {{ form.birthdate }}
+                    </div>
+                    <div class="col-md-2">
+                        <label for="inputZip" class="form-label">Gender</label>
+                        {{ form.gender }}
+                    </div>
+                    <div class="col-12">
+                        <label for="inputAddress2" class="form-label">Bio</label>
+                        {{ form.bio }}
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+    <br>
+{% endblock %}

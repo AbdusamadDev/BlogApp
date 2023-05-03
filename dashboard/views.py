@@ -11,18 +11,12 @@ class MyProfileDetails(DetailView):
     model = UserProfile
     pk_url_kwarg = "pk"
 
-    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
-        try:
-            return super().get(request, *args, **kwargs)
-        except Exception:
-            return HttpResponse("Sorry page is not avaliable due to some internal problems")
-
 class MyBlogs(ListView):
     template_name = "dashboard/my_blogs.html"
     model = BlogsModel
     pk_url_kwarg = "pk"
     context_object_name = "object"
-    paginate_by = 20
+    paginate_by = 5
 
     def get_queryset(self):
         if self.request.user.is_authenticated:

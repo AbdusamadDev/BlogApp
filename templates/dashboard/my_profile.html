@@ -9,5 +9,7 @@
     <p>Member since {{ object.date_joined }}</p>
     <img src="{{ object.avatar.url }}">
     <br><br>
-    <a href="{% url 'my-blogs' %}">My Blogs</a>
+    {% if request.user.id == user.pk %}
+        <a href="{% url 'my-blogs' %}">My Blogs</a>
+    {% endif %}
 {% endblock %}

@@ -44,10 +44,3 @@ class Login(LoginView):
     template_name = "registration/login.html"
     success_url = reverse_lazy("list")
     form_class = UserLoginForm  
-
-    def post(self, request: HttpRequest, *args: str, **kwargs) -> HttpResponse:
-        try:
-            print(self.request.POST)
-            return super().post(request, *args, **kwargs)
-        except Exception:
-            return HttpResponse("Sorry page is not avaliable due to some internal problems")
