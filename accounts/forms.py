@@ -7,11 +7,12 @@ from accounts.models import UserProfile
 class UserProfileCreationForm(UserCreationForm):
     """All fields in User creation process: username, 
     email, password, birthdate, bio, avatar, gender"""
+
     class Meta:
         model = UserProfile
         fields = [
             "username", "email", "avatar", "birthdate", "gender", "bio", "password1", "password2"
-            ]
+        ]
 
         widgets = {
             "email": forms.EmailInput(
@@ -51,6 +52,7 @@ class UserProfileCreationForm(UserCreationForm):
                 }
             )
         }
+
 
 class UserLoginForm(AuthenticationForm):
     class Meta:

@@ -1,11 +1,8 @@
-
-
 from django.db import models
 from accounts.models import UserProfile
 
-
 from ckeditor.fields import RichTextField
-import os
+
 
 class BlogsModel(models.Model):
     title = models.CharField(max_length=200, null=False, unique=False)
@@ -21,4 +18,3 @@ class BlogsModel(models.Model):
         indexes = [
             models.Index(fields=["title"], name="title_index")
         ]
-    

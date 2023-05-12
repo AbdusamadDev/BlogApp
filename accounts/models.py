@@ -6,6 +6,7 @@ CHOICES = (
     ("Female", "Female")
 )
 
+
 # avatar, date_of_birth, gender, date_joined
 class UserProfile(AbstractUser):
     bio = models.CharField(max_length=500)
@@ -18,8 +19,7 @@ class UserProfile(AbstractUser):
 
     def __str__(self) -> str:
         return str((self.username, self.email, self.password, self.bio))
-    
+
 # HINT: Add or change a related_name argument 
 # to the definition for 'auth.User.user_permissions' or 'accounts.UserProfile.user_permissions'.
 # issue___________________________________________________
-

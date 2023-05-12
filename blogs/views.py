@@ -1,14 +1,11 @@
-
-
-
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
-    CreateView, 
-    DetailView, 
+    CreateView,
+    DetailView,
     ListView,
     DeleteView
 )
@@ -19,7 +16,6 @@ from blogs.forms import CreateBlogForm
 from comments.models import CommentModel
 
 from typing import Any, Dict
-from PIL import Image
 
 
 class DetailsView(DetailView):
@@ -42,6 +38,7 @@ class DetailsView(DetailView):
         else:
             return super().get_context_data(**kwargs)
 
+
 class CreateBlogView(LoginRequiredMixin, CreateView):
     """
     Creating blogs 
@@ -51,31 +48,28 @@ class CreateBlogView(LoginRequiredMixin, CreateView):
     login_url = "accounts/login/"
     template_name = "blogs/create.html"
     form_class = CreateBlogForm
-    login_url = "login"
     model = BlogsModel
     success_url = reverse_lazy("list")
 
     def post(self, request: HttpRequest, *args, **kwargs):
-        try:
-            form = self.form_class(data=request.POST, files=request.FILES)
-            if form.is_valid():
-                user_id = UserProfile.objects.get(pk=request.user.id)
-                title   = form.cleaned_data.get("title")
-                image   = form.cleaned_data.get("image")
-                content = form.cleaned_data.get("content")
-                model   = self.model(title=title, user=user_id, content=content, image=image)
-                model.save()
-                messages.success(request=request, message=("Blog posted successfully!"))
-                return HttpResponseRedirect(self.success_url)
-            else:
-                return HttpResponse(str(form.errors))
-        except Exception:
-            return HttpResponse("Sorry page is not avaliable due to some internal problems")
+        form = self.form_class(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            user_id = UserProfile.objects.get(pk=request.user.id)
+            title = form.cleaned_data.get("title")
+            image = form.cleaned_data.get("image")
+            content = form.cleaned_data.get("content")
+            model = self.model(title=title, user=user_id, content=content, image=image)
+            model.save()
+            messages.success(request=request, message="Blog posted successfully!")
+            return HttpResponseRedirect(self.success_url)
+        else:
+            return HttpResponse(str(form.errors))
+
 
 class BlogsListView(ListView):
     """
     List all records from database using pagination
-    No functions were overriden because no need to
+    No functions were over writen because no need to
     """
 
     http_method_names = ["get"]
@@ -91,9 +85,10 @@ class BlogsListView(ListView):
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         # try:
-            return super().get(request, *args, **kwargs)
-        # except Exception:
-        #     return HttpResponse("Sorry page is not avaliable due to some internal problems")
+        return super().get(request, *args, **kwargs)
+    # except Exception:
+    #     return HttpResponse("Sorry page is not available due to some internal problems")
+
 
 class DeleteBlogView(DeleteView):
     """Delete Blog post which only belongs to user's itself"""
@@ -103,21 +98,18 @@ class DeleteBlogView(DeleteView):
     success_url = reverse_lazy("home")
 
     def delete(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        try:
-            username = request.user.username # Here should be updated to id
-            object = self.queryset.get(pk=kwargs.get("pk"))
-            if object.user == username:
-                object.delete()
-            else:
-                return HttpResponse("You don't have permission to delete other's blog")
-            return HttpResponseRedirect(self.success_url)
-        except Exception:
-            return HttpResponse("Sorry page is not avaliable due to some internal problems")
-    
+        username = request.user.username  # Here should be updated to id
+        object = self.queryset.get(pk=kwargs.get("pk"))
+        if object.user == username:
+            object.delete()
+        else:
+            return HttpResponse("You don't have permission to delete other's blog")
+        return HttpResponseRedirect(self.success_url)
+
+
 def home(request):
     # try:
-        context = {}
-        return render(request, "home.html", context=context)
-    # except Exception:
-    #     return HttpResponse("Sorry page is not avaliable due to some internal problems")
-
+    context = {}
+    return render(request, "home.html", context=context)
+# except Exception:
+#     return HttpResponse("Sorry page is not available due to some internal problems")

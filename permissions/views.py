@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from typing import Optional
 
+
 class IsAuthenticatedMixin(LoginRequiredMixin):
     request = None
 

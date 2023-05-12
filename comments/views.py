@@ -10,6 +10,7 @@ from comments.forms import CommentForm
 from blogs.models import BlogsModel
 from accounts.models import UserProfile
 
+
 class CommentView(LoginRequiredMixin, CreateView):
     model = CommentModel
     login_url = "login"
@@ -24,7 +25,7 @@ class CommentView(LoginRequiredMixin, CreateView):
         blog_id = self.kwargs.get("post_id")
         object = get_object_or_404(klass=BlogsModel, id=blog_id)
         return object
-    
+
     def get_user_object(self):
         user_id = self.request.user.id
         user = get_object_or_404(UserProfile, id=user_id)
@@ -36,21 +37,16 @@ class CommentView(LoginRequiredMixin, CreateView):
         return context
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        # if not request.user.is_authenticated:
-        #     print("not authenticated 0000")
-        #     return HttpResponseRedirect(reverse_lazy("login"))
         form = self.form_class(data=request.POST)
         if form.is_valid():
-            print("Not Authenticated 000")
             comment = form.cleaned_data.get("comment")
-            print("form being valid")
             model = CommentModel(
                 blog_id=self.get_queryset(), user=self.get_user_object(), comment=comment)
             model.save()
             return HttpResponseRedirect(self.get_success_url())
         else:
             return HttpResponse("Form is invalid")
-            
+
 
 class DeleteComment(DeleteView):
     model = CommentModel
@@ -60,11 +56,12 @@ class DeleteComment(DeleteView):
     def get_success_url(self) -> str:
         self.success_url = reverse_lazy("detail", kwargs={"pk": self.kwargs.get("pk")})
         return self.success_url
-    
+
     def delete(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         if not request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy("login"))
         return super().delete(request, *args, **kwargs)
+
 
 def profile(request):
     if request.user.is_authenticated:
