@@ -83,12 +83,6 @@ class BlogsListView(ListView):
         context.update({"users": users})
         return context
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        # try:
-        return super().get(request, *args, **kwargs)
-    # except Exception:
-    #     return HttpResponse("Sorry page is not available due to some internal problems")
-
 
 class DeleteBlogView(DeleteView):
     """Delete Blog post which only belongs to user's itself"""
@@ -108,8 +102,5 @@ class DeleteBlogView(DeleteView):
 
 
 def home(request):
-    # try:
     context = {}
     return render(request, "home.html", context=context)
-# except Exception:
-#     return HttpResponse("Sorry page is not available due to some internal problems")
